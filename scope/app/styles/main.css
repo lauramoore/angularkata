@@ -2,6 +2,7 @@ body {
     background: #fafafa;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
+    font-size: 1em;
 }
 
 .hero-unit {
@@ -19,4 +20,23 @@ body {
     font-size: 60px;
     line-height: 1;
     letter-spacing: -1px;
+}
+
+.demo {
+   float: left;
+   white-space:no-wrap;
+   width:33%;
+}
+
+#code {
+   width:1200px;
+}
+
+.output {
+   font-size: 0.75em;
+   font-style: italic;
+}
+.label {
+   font-size: 0.75em;
+   font-weight:bold;
 }

@@ -1,36 +1,96 @@
+<section class="overview">
 <h1>Basic Scope</h1>
 <p>"Scope is not the model.. it is just a reference to what's happening [inside the dom]".
 So scope is what you assign models to, not the model itself.
 <a href="www.egghead.io/video/DTx23w4z6Kc">egghead.io tutorial</a>
 </p>
+<ul>
+<li>Root scope sits at the top of the scope inheritance, changes to this model 
+<emphasis>can</emphasis> be reflected across all other application scopes which are 
+children of the root scope.</li>
+<li>Root scope is accesible without direct reference</li>
+<li>Controller scopes are children of root scope, and variables not found local
+will be pulled from parent scopes all the way back to root.</li>
+<li>If you declare 2 of the same controller on a view, they are siblings and each has
+it's own scope, so variables are not shared between them</li>
+</ul>
+</section>
+<section id="instruction">
+<h2 class="label">Plain Variables</h2>
+Plain variables lose inheritance as soon as written in child scopes.  They are local
+to the current scope only after that.
+<h2 class="label">Model Variable</h2>
+Model variables are assigned as an object property, the object is in scope.  They maintain
+inheritance across scope instances as it's the model variable that is bound, not a scope
+reference.
+</section>
+<aside>Note that variables declared from within the template are
+created in scope for you, you do not need to declare them.</aside>
 
-<h1>Root Scope</h1>
-<p>Root scope sits at the top of the scope inheritance, changes to this model 
-<emphasis>can</emphasis> be reflected across all other
-application scopes which are children of the root scope.</p>
+<section id="code">
 
-<div class="label">Plain Variable</div>
-<div class="input"> <input type="text" ng-model="plainvar"/></div>
-<div class="output"> {{plainvar}} </div>
+<section class="demo" id="root"> <!-- Start of Root Scope -->
+    <h3>Root Scope</h3>
+	<div class="input"> 
+	<span class="label">plainvar</span>
+	<input type="text" ng-model="plainvar"/>
+	<span class="output"> {{plainvar}} </span>
+	</div>
 
-<div class="label">Model Variable</div>
-<div class="input"><input type="text" ng-model="model.var"/></div>
-<div class="output">{{model.var}}</div>
+	<div class="input">
+	<span class="label">model.var</span>
+	<input type="text" ng-model="model.var"/>
+	<span class="output">{{model.var}}</span>
+	</div>
+</section><!-- End of Root Scope -->
 
-<div ng-controller="BasicCtrl">
-<h2>Controller Scope</h1>
-<p>Controller scopes are children of root scope, and variables not found local
-will be pulled from parent scopes all the way back to root.</p>
+<section class="demo" id="ctrl1" ng-controller="BasicCtrl"><!-- Start of Controller Scope -->
+    <h3>Controller Instance 1</h3>
+	<div class="input">
+	<input type="text" ng-model="plainvar"/>
+	<span class="output"> {{plainvar}}</span>
+	</div>
 
-<div class="label">Plain Variable</div>
-<div class="input"> <input type="text" ng-model="plainvar"/></div>
-<div class="output"> {{plainvar}} </div>
-<p>Plain variables are limited to current scope, inheritance stops as soon as 
-variable is declared in the controller scope</p>
+	<div class="input">
+	<input type="text" ng-model="model.var"/>
+	<span class="output">{{model.var}}</span>
+	</div>
 
-<div class="label">Model Variable</div>
-<div class="input"><input type="text" ng-model="model.var"/></div>
-<div class="output">{{model.var}}</div>
-<p>Model variables maintain inheritance, as it's the model value that changes not
-scope reference, and the model is declared at root scope.</p>
-</div>
+	<div class="input"> 
+	<span class="label">controllerplain</span>
+	<input type="text" ng-model="controllerplain"/>
+	<span class="output"> {{controllerplain}} </span>
+	</div>
+
+	<div class="input">
+	<span class="label">controller.modelvar</span>
+	<input type="text" ng-model="controller.modelvar"/>
+	<span class="output"> {{controller.modelvar}} </span>
+	</div>
+</section><!-- end of First Controller Scope Section -->
+
+<section class="demo" id="ctrl2" ng-controller="BasicCtrl"><!-- Sibling Controller Section -->
+    <h3> Controller Instance 2</h3>
+	<div class="input"> 
+	<input type="text" ng-model="plainvar"/>
+	<span class="output"> {{plainvar}} </span>
+	</div>
+
+	<div class="input"> 
+	<input type="text" ng-model="model.var"/>
+	<span class="output"> {{model.var}} </span>
+	</div>
+	
+	<div class="input"> 
+	<input type="text" ng-model="controllerplain"/>
+	<span class="output"> {{controllerplain}} </span>
+	</div>
+
+	<div class="input"> 
+	<input type="text" ng-model="controller.modelvar"/>
+	<span class="output"> {{controller.modelvar}} </span>
+	</div>
+</section><!-- End of Controller 2 Scope -->
+
+
+
